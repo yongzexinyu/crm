@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/layui-v2.5.6/layui/layui.js"></script>
+    <link rel="stylesheet" href="/layui-v2.5.6/layui/css/layui.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<div>
+    <form class="layui-form" action="" lay-filter="testform" onsubmit="return false">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="username" id="username" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="userpwd" id="pwd" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">验证码</label>
+            <div class="layui-input-inline">
+                <input type="text" name="code" class="layui-input">
+                <img id="img" src="/LineServlet" style="width: 70px;height: 30px;" onclick="this.src=this.src+'?'+Math.random()";>
+
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formLogin" >登录</button>
+           <!--     <button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+var i=3;
+    function dian() {
+     i--;
+console.log('还剩下'+i+"机会");
+        if (i > 0) {
+            return;
+        }
+        console.log("账户将被锁定")
+
+      var  date = new Date();
+
+        $("#pwd").val("")
+        $("#pwd").attr("disabled", "disabled")
+        console.log(date)
+
+    }
+</script>
+<script>
+    layui.use(['form','jquery','layer'],function () {
+        var form=layui.form;
+        var $=layui.jquery;
+        var layer=layui.layer;
+
+        form.on('submit(formLogin)', function(data){
+         
+            console.log('data.field data中的form下的name属性')
+            console.log(data.field)
+          //点击后 发送ajax给后台
+            $.ajax({
+                url:"/LoginServlet",
+                type:"POST",
+                data:data.field,
+
+                success:function (res) {
+
+                    console.log(res)
+                   if(res.code==400 ){
+                       layer.msg(res.msg)
+                   }
+
+                       if(res.code==4001){
+                           layer.msg(res.msg)
+                           dian()
+                       }
+
+
+
+
+
+                   if(res.code==0){
+                       //需要跳转到 后台界面，前后端分离， 页面跳转有前端负责，单体项目，页面跳转有后端负责
+                       window.location.href="/home.html"
+                   }
+                }
+    ,dataType:"json"
+            })
+        });
+    })
+
+</script>
+</body>
+</html>
