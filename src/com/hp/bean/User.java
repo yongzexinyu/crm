@@ -1,7 +1,7 @@
 package com.hp.bean;
 
 public class User {
-    private    int              id;
+    private    int   id;
 
     @Override
     public String toString() {

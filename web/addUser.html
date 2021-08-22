@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form  class="layui-form layui-form-pane" action="" onsubmit="return false" lay-filter="myAdd">
+<div class="layui-form-item">
+    <div class="layui-input-inline">
+        <label class="layui-form-label">账号</label>
+        <input type="text" name="username"  placeholder="请输入账号"  class="layui-input">
+
+        <br><br>
+        <label class="layui-form-label">姓名</label>
+        <input type="text" name="real_name"  placeholder="请输入姓名"  class="layui-input">
+        <br><br>
+
+
+        <label class="layui-form-label">密码</label>
+        <input type="text" name="password"  placeholder="请输入密码"  class="layui-input">
+        <br><br>
+        <label class="layui-form-label">图片</label>
+        <input type="text" name="img"  placeholder="请设置头像"  class="layui-input">
+        <br><br>
+        <label class="layui-form-label layui-inline">角色</label>
+        <select name="type">
+            <option value="0" selected=""></option>
+            <option value="1" >管理员</option>
+            <option value="2" >用户</option>
+        </select>
+        <br><br>
+        <label class="layui-form-label">是否能用</label>
+        <input type="radio" name="sdel"  value="是" title="是" checked="">
+        <input type="radio" name="sdel" value="否" title="否">
+        <!--   <input type="radio" name="sex" value="禁" title="禁用" disabled="">-->
+        <br><br>
+
+        <label class="layui-form-label">创建时间</label>
+        <input type="text" name="create_time" class="layui-input" id="createTime" placeholder="yyyy-MM-dd HH:mm:ss">
+        <br><br>
+
+
+        <label class="layui-form-label">修改时间</label>
+        <input type="text" name="modify_time" class="layui-input" id="updaTime" placeholder="yyyy-MM-dd HH:mm:ss">
+
+    </div>
+    <!--下面应该有提交或者返回按钮-->
+</div>
+</from>
+</body>
+</html>

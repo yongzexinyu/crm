@@ -38,6 +38,7 @@ public class LoginServlet extends HttpServlet {
             Map map=new HashMap<>();
             map.put("code",400);
             map.put("msg","验证码不正确");
+
             String jsonString = JSON.toJSONString(map);
             writer.print(jsonString);
             writer.close();

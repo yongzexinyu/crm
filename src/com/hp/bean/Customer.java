@@ -27,7 +27,7 @@ public class Customer {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String s, int id) {
         this.id = id;
     }
 
@@ -35,7 +35,7 @@ public class Customer {
         return cust_name;
     }
 
-    public void setCust_name(String cust_name) {
+    public void setCust_name( String cust_name) {
         this.cust_name = cust_name;
     }
 
@@ -67,7 +67,7 @@ public class Customer {
         return cust_birth;
     }
 
-    public void setCust_birth(String cust_birth) {
+    public void setCust_birth( String cust_birth) {
         this.cust_birth = cust_birth;
     }
 

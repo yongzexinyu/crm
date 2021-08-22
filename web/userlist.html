@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>用户的列表</title>
+    <!--
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    -->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <link rel="stylesheet" href="/layui-v2.5.6/layui/css/layui.css">
     <script src="/layui-v2.5.6/layui/layui.js"></script>
 </head>
@@ -20,61 +24,148 @@
 <body>
 <!--我是修改-->
 <script type="text/html" id="updateHtml" >
-    <form class="layui-form layui-form-pane" action="" onsubmit="return false">
+    <form class="layui-form layui-form-pane" action="" onsubmit="return false" lay-filter="myUpdate">
 
+        <div class="layui-form-item">
+            <label class="layui-form-label">账号</label>
+            <div class="layui-input-inline">
+                <input type="text" name="username"  placeholder="请输入账号"  class="layui-input">
+            </div>
+        </div>
         <div class="layui-form-item">
             <label class="layui-form-label">姓名</label>
             <div class="layui-input-inline">
-                <input type="text" name=""  placeholder="请输入姓名"  class="layui-input">
+                <input type="text" name="real_name"  placeholder="请输入姓名"  class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">年龄</label>
+            <label class="layui-form-label">密码</label>
             <div class="layui-input-inline">
-                <input type="text" name=""  placeholder="请输入年龄"  class="layui-input">
+                <input type="text" name="password"  placeholder="请输入密码"  class="layui-input">
             </div>
         </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">是否神仙</label>
-            <div class="layui-input-inline">
-                <input type="radio" name="shen" value="神仙" title="神仙" checked="">
-                <input type="radio" name="shen" value="凡人" title="凡人">
-                <!--   <input type="radio" name="sex" value="禁" title="禁用" disabled="">-->
-            </div>
-        </div>
-        <!--下面应该有提交或者返回按钮-->
-    </form>
-
-</script>
-
-<!--加上一个搜索框-->
-<!--layui-form-pane 变成方框格式-->
-<form class="layui-form layui-form-pane" action="" onsubmit="return false">
-    <div class="layui-form-item layui-inline" >
-        <label class="layui-form-label">账户</label>
-        <div class="layui-input-inline">
-            <input type="text" name=""  placeholder="请输入姓名"  class="layui-input">
-        </div>
-        <div class="layui-form-item layui-inline">
-            <label class="layui-form-label">名称</label>
-            <div class="layui-input-inline">
-                <input type="text" name=""  placeholder="请输入名称"  class="layui-input">
-            </div>
         <label class="layui-form-label layui-inline">角色</label>
         <div class="layui-input-inline">
-            <select name="">
-                <option value="1" selected="">管理员</option>
+            <select name="type">
+                <option value="0" selected=""></option>
+                <option value="1" >管理员</option>
                 <option value="2" >用户</option>
             </select>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否能用</label>
+            <div class="layui-input-inline">
+                <input type="radio" name="is_del"  value="是" title="是" checked="">
+                <input type="radio" name="is_del" value="否" title="否">
+                <!--   <input type="radio" name="sex" value="禁" title="禁用" disabled="">-->
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">修改时间</label>
+            <div class="layui-input-inline">
+                <input type="text" name="modify_time" class="layui-input" id="updateTime" placeholder="yyyy-MM-dd HH:mm:ss">
+            </div>
+        </div>
+        <!--下面应该有提交或者返回按钮-->
+        <input  class="layui-input" type="hidden" value="" name="id">
+        <button class="layui-btn layui-hide" lay-submit lay-filter="myUpdateSubmit" id="myUpdateSubmit">立即提交</button>
+
+    </form>
+
+</script>
+<script type="text/html" id="addHtml" >
+    <form class="layui-form layui-form-pane" action="" onsubmit="return false" lay-filter="myAdd">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">账号</label>
+            <div class="layui-input-inline">
+                <input type="text" name="username"  placeholder="请输入账号"  class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="real_name"  placeholder="请输入姓名"  class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-inline">
+                <input type="text" name="password"  placeholder="请输入密码"  class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">图片</label>
+            <div class="layui-input-inline">
+                <input type="text" name="img"  placeholder="请设置头像"  class="layui-input">
+            </div>
+        </div>
+        <label class="layui-form-label layui-inline">角色</label>
         <div class="layui-input-inline">
-            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">搜索</button>
+            <select name="type">
+                <option value="0" selected=""></option>
+                <option value="1" >管理员</option>
+                <option value="2" >用户</option>
+            </select>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否能用</label>
+            <div class="layui-input-inline">
+                <input type="radio" name="sdel"  value="是" title="是" checked="">
+                <input type="radio" name="sdel" value="否" title="否">
+                <!--   <input type="radio" name="sex" value="禁" title="禁用" disabled="">-->
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">创建时间</label>
+            <div class="layui-input-inline">
+                <input type="text" name="create_time" class="layui-input" id="createTime" placeholder="yyyy-MM-dd HH:mm:ss">
+
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">修改时间</label>
+            <div class="layui-input-inline">
+                <input type="text" name="modify_time" class="layui-input" id="modifyTime" placeholder="yyyy-MM-dd HH:mm:ss">
+
+            </div>
+        </div>
+        <!--下面应该有提交或者返回按钮-->
+        <button class="layui-btn " lay-submit lay-filter="myAddSubmit" id="myAddSubmit">立即提交</button>
+    </form>
+
+</script>
+<!--加上一个搜索框-->
+<!--layui-form-pane 变成方框格式-->
+<form class="layui-form  layui-form-pane" action="" onsubmit="return false">
+    <div class="layui-form-item">
+        <label class="layui-form-label">账户</label>
+        <div class="layui-input-inline">
+            <input type="text" name="username"  placeholder="请输入账号" class="layui-input">
+        </div>
+
+        <label class="layui-form-label">名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="real_name"  placeholder="请输入姓名" class="layui-input">
+        </div>
+
+        <label class="layui-form-label">角色</label>
+        <div class="layui-input-inline">
+            <select name="type">
+                <option value=""  selected="">请选择</option>   <!--selected是选择的意思-->
+                <option value="1">管理员</option>
+                <option value="2">用户</option>
+            </select>
+        </div>
+
+        <div class="layui-input-inline">
+            <button type="submit" class="layui-btn" lay-submit lay-filter="searchBtn">搜索</button>
         </div>
     </div>
 
 </form>
-
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
 
@@ -83,6 +174,7 @@
         <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
         <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+        <button class="layui-btn layui-btn-sm" lay-event="addUser">添加</button>
     </div>
 </script>
 
@@ -97,12 +189,13 @@
 -->
 
 <script>
-    layui.use(['layer','form','table','util','jquery'],function(args){
+    layui.use(['layer','form','table','util','laydate','jquery'],function(args){
         var layer=layui.layer;
         var form=layui.form;
         var table=layui.table;
         var util=layui.util;
         var $=layui.jquery;
+        var laydate=layui.laydate;
 //table.render是渲染上面的table表格
         table.render({
             elem:"#test"
@@ -116,24 +209,26 @@
             ,title: '用户数据表'
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'}
-                ,{field:'id', title:'序号', width:80, fixed: 'left', sort: true}
+                ,{field:'id', title:'序号', width:80, /*fixed: 'left',*/ sort: true}
                 ,{field:'username', title:'账号', width:120}
                 ,{field:'real_name', title:'姓名', width:120}
                 ,{field:'password', title:'密码', width:120}
                 ,{field:'type', title:'类型', width:120,templet:function (d) {
                         var type=d.type;
                         if(type==1){
-                            return "<span style='color: red'>"+type+"</span>"
+                            return "<span style='color: red'>管理员</span>"
                         }
                         if(type==2){
-                            return  "<span style='color: green'>"+type+"</span>"
+                            return  "<span style='color: green'>用户</span>"
                         }
                     }}
                 ,{field:'is_del', title:'是否能用', width:120, templet:function (d) {
-                        if(d.is_del){
-                            return '   <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="1|2" value="1">'
-                        }else{
-                            return  ' <input type="checkbox" name="close" lay-skin="switch" lileday-filter="switchTest" lay-text="1|2" value="2">'
+                        if(d.is_del==1){
+                            return '   <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="是|否" value="1">'
+                        }
+
+                        if(d.is_del==2){
+                            return  ' <input type="checkbox" name="close" lay-skin="switch" lileday-filter="switchTest" lay-text="是|否" value="2">'
                         }
                     }}
                 ,{field:'img', title:'头像', width:120,templet:function () {
@@ -141,26 +236,26 @@
                     }}
                 ,{field:'create_time', title:'创建时间', width:160}
                 ,{field:'modify_time', title:'修改时间', width:160}
-         /*       ,{field:'age', title:'年龄', width:120, edit: 'text',templet:function (d) {
-                        var age=d.age;
-                        if(age>100){
-                            return "<span style='color: red'>"+age+"</span>"
-                        }else{
-                            return "<span>"+age+"</span>"
-                        }
-                    }}
-                ,{field:'birthday', title:'日期', width:160, templet:function (d) {
-                        console.log(d)
-                        return util.toDateString(d.birthday,"yyyy-MM-dd HH:mm:ss")
+                /*       ,{field:'age', title:'年龄', width:120, edit: 'text',templet:function (d) {
+                               var age=d.age;
+                               if(age>100){
+                                   return "<span style='color: red'>"+age+"</span>"
+                               }else{
+                                   return "<span>"+age+"</span>"
+                               }
+                           }}
+                       ,{field:'birthday', title:'日期', width:160, templet:function (d) {
+                               console.log(d)
+                               return util.toDateString(d.birthday,"yyyy-MM-dd HH:mm:ss")
 
-                    }}
-                ,{field:'shen',title:'是否是神仙',width:120,templet:function (d) {
-                        if(d.shen){
-                            return '   <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="神仙|凡人" value="神仙">'
-                        }else{
-                            return  ' <input type="checkbox" name="close" lay-skin="switch" lileday-filter="switchTest" lay-text="神仙|凡人" value="凡人">'
-                        }
-                    }}*/
+                           }}
+                       ,{field:'shen',title:'是否是神仙',width:120,templet:function (d) {
+                               if(d.shen){
+                                   return '   <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="神仙|凡人" value="神仙">'
+                               }else{
+                                   return  ' <input type="checkbox" name="close" lay-skin="switch" lileday-filter="switchTest" lay-text="神仙|凡人" value="凡人">'
+                               }
+                           }}*/
                 ,{f: 'right', title:'操作', toolbar: '#barDemo', width:150}
 
             ]]
@@ -183,6 +278,7 @@
 
         //头工具栏事件
         table.on('toolbar(test)', function(obj){
+            //console.log(obj)
             var checkStatus = table.checkStatus(obj.config.id);
             switch(obj.event){
                 case 'getCheckData':
@@ -196,7 +292,32 @@
                 case 'isAll':
                     layer.msg(checkStatus.isAll ? '全选': '未全选');
                     break;
+                case 'addUser':
+                    layer.open({
+                        title:'添加',
+                        area:['600px','600px'],
+                        type: 1,
+                        content:$("#addHtml").html(),
+                        success:function (layero,index) {
+                            console.log(layero.data)
+                            console.log(index)
+                            console.log("我是layer弹出成功后的回调")
 
+                            form.render();//重点强调：当界面发生改变时，记得重新渲染模块，不然不显示效果
+
+                            laydate.render({
+                                elem: '#createTime'
+                                ,type: 'datetime'
+                            });
+
+                            laydate.render({
+                                elem: '#modifyTime'
+                                ,type: 'datetime'
+                            });
+
+                        }
+                    })
+                    break;
                 //自定义头工具栏右侧图标 - 提示
                 case 'LAYTABLE_TIPS':
                     layer.alert('这是工具栏右侧自定义的一个图标按钮');
@@ -214,6 +335,7 @@
                     layer.close(index);
                 });
             } else if(obj.event === 'edit'){
+                //  layer.alert('编辑行：<br>'+ JSON.stringify(obj))
                 /* alert("你好")*/
                 /*
                 如果是页面层
@@ -221,21 +343,39 @@
                 layer.open({
                     title:'编辑',
                     area:['600px','600px'],
-                    type: 1,
+                    type: 1,//在当前页面弹出 ，当值为2时表示自定义弹出
                     // content: '<h1>你好世界</h1>' //一般不这么写
-                    content:$("#updateHtml").html(),
+                    content:$("#updateHtml").html(),//弹出框的内容
                     success:function (layero,index) {
                         console.log(layero)
                         console.log(index)
                         console.log("我是layer弹出成功后的回调")
+                        //给表单赋值
+                        form.val("myUpdate", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+                            "username": data.username // "name": "value"
+                            ,"real_name": data.real_name
+                            ,"password": data.password
+                            ,"type": data.type
+                            ,"is_del": data.is_del
+                            ,"modify_time": data.modify_time
+                            ,"id":data.id
+                        });
                         form.render();//重点强调：当界面发生改变时，记得重新渲染模块，不然不显示效果
+                        laydate.render({
+                            elem: '#updateTime'
+                            ,type: 'datetime'
+                        });
+
                     },
                     btn:['确定修改','取消修改','其他1','其他2'],
-                    yes:function (index,layero) {
-                        alert("向后台发送了ajax")
-                        return false;//开启改代码可禁止点击该按钮关闭
+                    yes:function (index,layero){ //回调函数
+                        $("#myUpdateSubmit").click();
+                        layer.close(index)
+                        return false;
                     },
                     btn2:function (index,layero) {
+                        layer.close(index);
+
                         alert("我取消了修改")
                         return false;//开启改代码可禁止点击该按钮关闭
                     }
@@ -253,33 +393,92 @@
         });
         //监听指定开关
         form.on('switch(switchTest)', function(data){
-            //console.log(data)
+            console.log(data)
+            console.log(data.othis)
+            console.log(data.othis.parents())
+            var id=data.othis.parents('tr').find('td').eq(1).text()
             // console.log(data.othis.text())
             var x=this.checked ? true : false;
             if(x){
                 data.value="1"
                 console.log(data.value)
+
             }else{
                 data.value="2"
                 console.log(data.value)
+
             }
-          /*  $.ajax({
-                url:'/ShenServlet',
-                type:'post',
+            $.ajax({
+                url:'/IsDelServlet',
                 data:{
-                    'shen':data.othis.text()
+                    'sDel':data.value,
+                    'id':id
                 },
                 dataType:'json',
                 success:function (res) {
-                    // console.log(res)
+                    console.log(res)
                 }
             })
             layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
                 offset: '6px'
-            });*/
+            });
             // layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
         });
-
+//监听搜索按钮
+        form.on('submit(searchBtn)', function(data){
+            //  alert("dianji了搜索")
+            console.log(data.field);  //拿到的所有数据
+            table.reload('test', {
+                where: { //设定异步数据接口的额外参数，任意设
+                    real_name: data.field.real_name
+                    ,type: data.field.type
+                    ,username: data.field.username
+                    //…
+                }
+                ,page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            }); //只重载数据
+            return  false;
+        });
+        //监听修改的按钮
+        form.on('submit(myUpdateSubmit)',function (data) {
+            console.log(data)
+            $.ajax({
+                url:"/EditServlet",
+                type:'POST',
+                data:data.field,
+                dataType:'JSON',
+                success:function (res) {
+                    console.log(res)
+                    if(res.code==0){
+                        layer.msg("编辑成功")
+                        table.reload('test',{
+                            page:{
+                                curr:1//重新从第1页开始
+                            }
+                        });//只重载数据
+                    }
+                }
+            })
+        })
+        form.on('submit(myAddSubmit)',function (data) {
+            console.log(data)
+        //    $("#myUpdateSubmit").click()
+            $.ajax({
+                url:"/AddUserServlet"
+                ,type:"POST"
+                ,data:data.field
+                ,dataType:"JSON"
+                ,success:function (res) {
+                    if(res.code==0){
+                        layer.msg("添加成功")
+                    }else{
+                        layer.msg("添加失败")
+                    }
+                }
+            })
+        })
     })
 </script>
 </body>

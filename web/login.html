@@ -92,7 +92,7 @@ console.log('还剩下'+i+"机会");
 
                    if(res.code==0){
                        //需要跳转到 后台界面，前后端分离， 页面跳转有前端负责，单体项目，页面跳转有后端负责
-                       window.location.href="/home.html"
+                       window.location.href="/home.html?username="+res.username
                    }
                 }
     ,dataType:"json"
